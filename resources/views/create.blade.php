@@ -29,7 +29,7 @@
                         <input type="text" name="phone" class="form-control" v-model="phone">
                     </div>
                     <div class="col-md-12">
-                        <label for="phone">Email</label>
+                        <label for="email">Email</label>
                         <input type="email" name="email" class="form-control" v-model="email">
                     </div>
                     <span v-for="error in errors" class="text-danger">@{{ error }}</span>

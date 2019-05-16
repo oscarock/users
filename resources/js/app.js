@@ -4,7 +4,13 @@ new Vue({
         this.getAllUsers()
     },
     data: {
-        users: []
+        users: [],
+        name: "",
+        surname: "",
+        document: "",
+        phone: "",
+        email: "",
+        errors: []
     },
 
     methods: {
@@ -12,6 +18,28 @@ new Vue({
             var urlUsers = "users"
             axios.get(urlUsers).then(response => {
                 this.users = response.data
+            })
+        },
+        createUser: function(){
+            var urlCreate = "users"
+            axios.post(urlCreate, {
+                name: this.name,
+                surname: this.surname,
+                document: this.document,
+                phone: this.phone,
+                email: this.email
+            }).then(response => {
+                this.getAllUsers()
+                this.name = ""
+                this.surname = ""
+                this.document = ""
+                this.phone = ""
+                this.email = ""
+                this.errors = []
+                $("#create").modal("hide")
+                toastr.success("Agregado Correctamente.")
+            }).catch(error => {
+                this.errors = error.response.data.errors
             })
         },
     }
