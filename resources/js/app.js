@@ -39,7 +39,11 @@ new Vue({
                 $("#create").modal("hide")
                 toastr.success("Agregado Correctamente.")
             }).catch(error => {
-                this.errors = error.response.data.errors
+                //this.errors = error.response.data.errors
+                if (error.response.status == 422){
+                    this.errors = error.response.data.errors;
+                    console.dir(this.errors.name[0])
+                }
             })
         },
     }
