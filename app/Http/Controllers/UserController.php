@@ -39,9 +39,9 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'surname' => 'required',
-            'document' => 'required|numeric|exists:users',
+            'document' => 'required|numeric|unique:users,document',
             'phone' => 'required|numeric',
-            'email' => 'required|email|exists:users'
+            'email' => 'required|email|unique:users,email'
         ]);
 
         $users = new User;
