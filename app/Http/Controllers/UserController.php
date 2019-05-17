@@ -86,7 +86,23 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'surname' => 'required',
+            'document' => 'required|numeric',
+            'phone' => 'required|numeric',
+            'email' => 'required|email'
+        ]);
+
+        $users = User::findOrFail($id);
+        $users->name = $request->input('name');
+        $users->surname = $request->input('surname');
+        $users->document = $request->input('document');
+        $users->phone = $request->input('phone');
+        $users->email = $request->input('email');
+        $users->save();
+
+        return;
     }
 
     /**

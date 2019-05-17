@@ -10,7 +10,8 @@ new Vue({
         document: "",
         phone: "",
         email: "",
-        errors: []
+        errors: [],
+        fillUser: {'id': '', 'name': '', 'surname': '', 'document': '', 'phone': '', 'email': ''}
     },
 
     methods: {
@@ -39,12 +40,39 @@ new Vue({
                 $("#create").modal("hide")
                 toastr.success("Agregado Correctamente.")
             }).catch(error => {
-                //this.errors = error.response.data.errors
-                if (error.response.status == 422){
-                    this.errors = error.response.data.errors;
-                    console.dir(this.errors.name[0])
-                }
+                this.errors = error.response.data.errors
             })
         },
+        viewUser: function(users){
+            this.fillUser.id = users.id
+            this.fillUser.name = users.name
+            this.fillUser.surname = users.surname
+            this.fillUser.document = users.document
+            this.fillUser.phone = users.phone
+            this.fillUser.email = users.email
+            $("#view").modal("show")
+        },
+        updateUser: function(users){
+            var urlUpdate = "users/" + users.id
+            axios.put(urlUpdate, {
+                name: users.name,
+                surname: users.surname,
+                document: users.document,
+                phone: users.phone,
+                email: users.email
+            }).then(response => {
+                this.getAllUsers()
+                this.name = ""
+                this.surname = ""
+                this.document = ""
+                this.phone = ""
+                this.email = ""
+                this.errors = []
+                $("#view").modal("hide")
+                toastr.success("Modificado Correctamente.")
+            }).catch(error => {
+                this.errors = error.response.data.errors
+            })
+        }
     }
 })

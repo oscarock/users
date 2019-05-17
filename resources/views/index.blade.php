@@ -27,11 +27,14 @@
                     <td>@{{ users.document }}</td>
                     <td>@{{ users.phone }}</td>
                     <td>@{{ users.email }}</td>
-                    <td></td>
+                    <td>
+                        <a href="#" v-on:click.prevent="viewUser(users)"><i class="far fa-eye"></i></a>
+                    </td>
                 </tr>
             </table>
         </div>    
     </div>
     @include('create')
+    @include('view')
 </div>
 @endsection
